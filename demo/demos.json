@@ -1,0 +1,15 @@
+{
+  "name": "Vaadin Incubator Element",
+  "pages": [
+  {
+    "name": "Basics",
+    "url": "incubator-chat-basic-demos",
+    "src": "incubator-chat-basic-demos.html",
+    "meta": {
+      "title": "incubator-chat Basic Examples",
+      "description": "",
+      "image": ""
+     }
+  }
+  ]
+}

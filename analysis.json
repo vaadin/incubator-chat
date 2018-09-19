@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "namespaces": [
+    {
+      "name": "Vaadin",
+      "description": "",
+      "summary": "",
+      "sourceRange": {
+        "file": "src/incubator-chat.html",
+        "start": {
+          "line": 44,
+          "column": 6
+        },
+        "end": {
+          "line": 44,
+          "column": 68
+        }
+      },
+      "elements": [
+        {
+          "description": "`<incubator-chat>` is a template for incubator components.\n\n```\n<incubator-chat>\n</incubator-chat>\n```",
+          "summary": "",
+          "path": "src/incubator-chat.html",
+          "properties": [],
+          "methods": [],
+          "staticMethods": [],
+          "demos": [
+            {
+              "url": "demo/index.html",
+              "description": ""
+            }
+          ],
+          "metadata": {},
+          "sourceRange": {
+            "start": {
+              "line": 33,
+              "column": 6
+            },
+            "end": {
+              "line": 37,
+              "column": 7
+            }
+          },
+          "privacy": "public",
+          "superclass": "HTMLElement",
+          "name": "Vaadin.IncubatorChat",
+          "attributes": [],
+          "events": [],
+          "styling": {
+            "cssVariables": [],
+            "selectors": []
+          },
+          "slots": [],
+          "tagname": "incubator-chat"
+        }
+      ]
+    }
+  ]
+}

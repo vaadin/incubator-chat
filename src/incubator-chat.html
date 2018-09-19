@@ -1,0 +1,52 @@
+<!--
+@license
+Copyright (c) 2018 Vaadin Ltd.
+This program is available under Commercial Vaadin Add-On License 3.0 (CVALv3).
+
+See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete license.
+-->
+
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
+
+<dom-module id="incubator-chat">
+  <template>
+    <style>
+    </style>
+
+    <h1>Hello world</h1>
+  </template>
+
+  <script>
+    (function() {
+      /**
+       * `<incubator-chat>` is a template for incubator components.
+       *
+       * ```
+       * <incubator-chat>
+       * </incubator-chat>
+       * ```
+       *
+       * @memberof Vaadin
+       * @demo demo/index.html
+       */
+      class IncubatorChat extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
+        static get is() {
+          return 'incubator-chat';
+        }
+      }
+
+      customElements.define(IncubatorChat.is, IncubatorChat);
+
+      /**
+       * @namespace Vaadin
+       */
+      window.Vaadin.IncubatorChat = IncubatorChat;
+
+      if (window.Vaadin.runIfDevelopmentMode) {
+        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', IncubatorChat);
+      }
+    })();
+  </script>
+</dom-module>

@@ -1,0 +1,3 @@
+window.IncubatorChatSuites = [
+  'sample.html',
+];

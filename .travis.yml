@@ -1,0 +1,36 @@
+sudo: true
+dist: trusty
+language: node_js
+node_js: 8.11
+
+cache:
+  directories:
+    - node_modules
+
+addons:
+  firefox: latest
+  chrome: stable
+
+before_script:
+  - npm install -g bower polymer-cli@next
+  - bower install
+
+env:
+  - POLYMER=2
+
+script:
+  - if [[ "$POLYMER" = "2" ]]; then
+      npm install &&
+      gulp lint version:check &&
+      polymer lint --rules polymer-2 --input ./src/*.html ./theme/**/*.html &&
+      if [[ "$TRAVIS_EVENT_TYPE" = "pull_request" ]]; then
+        xvfb-run -s '-screen 0 1024x768x24' polymer test;
+      else
+        polymer test --env saucelabs;
+      fi;
+    fi
+
+  - if [[ "$TRAVIS_EVENT_TYPE" = "cron" ]]; then
+      npm install &&
+      polymer test --env saucelabs-cron;
+    fi

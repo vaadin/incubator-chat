@@ -1,0 +1,26 @@
+<dom-module id="incubator-chat-basic-demos">
+  <template>
+    <style include="vaadin-component-demo-shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <h3>Demo sample</h3>
+    <vaadin-demo-snippet id="incubator-chat-demo-sample">
+      <template preserve-content>
+        <incubator-chat>
+        </incubator-chat>
+      </template>
+    </vaadin-demo-snippet>
+
+  </template>
+  <script>
+    class IncubatorChatBasicDemos extends DemoReadyEventEmitter(ElementDemo(Polymer.Element)) {
+      static get is() {
+        return 'incubator-chat-basic-demos';
+      }
+    }
+    customElements.define(IncubatorChatBasicDemos.is, IncubatorChatBasicDemos);
+  </script>
+</dom-module>

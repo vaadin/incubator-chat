@@ -1,0 +1,116 @@
+<!--
+@license
+Copyright (c) 2018 Vaadin Ltd.
+This program is available under Commercial Vaadin Add-On License 3.0 (CVALv3).
+
+See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete license.
+-->
+
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import" href="../../vaadin-text-field/vaadin-text-area.html">
+<link rel="import" href="../../vaadin-button/vaadin-button.html">
+
+<dom-module id="incubator-chat-input">
+  <template>
+    <style>
+      :host {
+        display: flex;
+      }
+
+      [part="input"] {
+        flex-grow: 1;
+        --lumo-text-field-size: 26px;
+        max-height: 100px;
+      }
+
+      [part="submit"] {
+        margin-left: 10px;
+      }
+    </style>
+
+    <vaadin-text-area
+      id="input"
+      part="input"
+      placeholder="Type your message"
+      value="{{body}}">
+    </vaadin-text-area>
+
+    <vaadin-button
+      part="submit"
+      on-click="_dispatchNewMessage">
+      Send
+    </vaadin-button>
+  </template>
+
+  <script>
+    (function() {
+      /**
+       * `<incubator-chat-input>` is a.
+       *
+       * ```
+       * <incubator-chat-input>
+       * </incubator-chat-input>
+       * ```
+       *
+       * @memberof Vaadin
+       * @demo demo/index.html
+       */
+      class IncubatorChatInput extends Vaadin.ThemableMixin(Polymer.Element) {
+        static get is() {
+          return 'incubator-chat-input';
+        }
+
+        static get properties() {
+          return {
+            body: {
+              type: String
+            }
+          };
+        }
+
+        ready() {
+          super.ready();
+
+          // workaround to set vaadin-text-area's height equal to input's height initially
+          this.shadowRoot.querySelector('[part="input"]').focusElement.rows = 1;
+
+          this.$.input.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+              this._dispatchNewMessage();
+            }
+          });
+        }
+
+        _dispatchNewMessage() {
+          if (this.body) {
+            this.dispatchEvent(new CustomEvent('incubator-chat-new-message', {
+              bubbles: true,
+              composed: true,
+              detail: {
+                body: this.body
+              }
+            }));
+          }
+        }
+
+        clearInput() {
+          this.body = '';
+        }
+      }
+
+      customElements.define(IncubatorChatInput.is, IncubatorChatInput);
+
+      /**
+       * @namespace Vaadin
+       */
+      window.Vaadin.IncubatorChatInput = IncubatorChatInput;
+
+      if (window.Vaadin.runIfDevelopmentMode) {
+        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', IncubatorChatInput);
+      }
+    })();
+  </script>
+
+</dom-module>
+

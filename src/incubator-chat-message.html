@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2018 Vaadin Ltd.
+This program is available under Commercial Vaadin Add-On License 3.0 (CVALv3).
+
+See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete license.
+-->
+
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import" href="../../incubator-avatar/incubator-avatar.html">
+
+<dom-module id="incubator-chat-message">
+  <template>
+    <style>
+      :host {
+        --incubator-chat-message-avatar-width: 50px;
+        --incubator-chat-message-avatar-height: 50px;
+
+        display: flex;
+      }
+
+      :host([outgoing]) {
+        flex-direction: row-reverse;
+      }
+
+      incubator-avatar {
+        width: var(--incubator-chat-message-avatar-width);
+        height: var(--incubator-chat-message-avatar-height);
+      }
+
+      [part="content"] {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      :host([outgoing]) [part="content"] {
+        margin-left: 0;
+        margin-right: 10px;
+        align-items: flex-end;
+      }
+
+      [part="username"] {
+        font-weight: bold;
+      }
+
+      [part="body"] {
+        max-width: 60%;
+      }
+    </style>
+
+    <incubator-avatar
+      image="[[avatar]]"
+      name="[[senderName]]"
+      no-tooltip>
+    </incubator-avatar>
+
+    <div part="content">
+      <div part="username">
+        [[senderName]]
+      </div>
+
+      <div part="body">
+        [[body]]
+      </div>
+    </div>
+  </template>
+
+  <script>
+    (function() {
+      /**
+       * `<incubator-chat-message>` is a.
+       *
+       * ```
+       * <incubator-chat-message>
+       * </incubator-chat-message>
+       * ```
+       *
+       * @memberof Vaadin
+       * @demo demo/index.html
+       */
+      class IncubatorChatMessage extends Vaadin.ThemableMixin(Polymer.Element) {
+        static get is() {
+          return 'incubator-chat-message';
+        }
+
+        static get properties() {
+          return {
+            body: {
+              type: String
+            },
+
+            avatar: {
+              type: String
+            },
+
+            senderName: {
+              type: String
+            },
+
+            outgoing: {
+              type: Boolean,
+              reflectToAttribute: true,
+              value: false
+            }
+          };
+        }
+      }
+
+      customElements.define(IncubatorChatMessage.is, IncubatorChatMessage);
+
+      /**
+       * @namespace Vaadin
+       */
+      window.Vaadin.IncubatorChatMessage = IncubatorChatMessage;
+
+      if (window.Vaadin.runIfDevelopmentMode) {
+        window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', IncubatorChatMessage);
+      }
+    })();
+  </script>
+
+</dom-module>
+

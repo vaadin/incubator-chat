@@ -9,8 +9,78 @@
     <h3>Demo sample</h3>
     <vaadin-demo-snippet id="incubator-chat-demo-sample">
       <template preserve-content>
-        <incubator-chat>
+        <style>
+          .loading-indicator {
+            text-align: center;
+          }
+        </style>
+
+        <incubator-chat
+          id="demo1"
+          lazy-load-trigger-offset="300">
+          <div class="loading-indicator" slot="loading-indicator">
+            Loading..
+          </div>
         </incubator-chat>
+
+        <script>
+          let messageIndex = 0;
+
+          function generateMessages() {
+            return Array(40).fill().map((el, index) => {
+              if (index % 2) {
+                return {
+                  body: `Hello! Message index: ${messageIndex++}. Consectetur
+                  vero Non placeat delectus molestias praesentium voluptatem
+                  quia Nam voluptate.`,
+                  senderName: 'Mary White',
+                  currentUser: true
+                };
+              } else {
+                return {
+                  body: `Hello! Message index: ${messageIndex++}`,
+                  senderName: 'Bobby Jackson',
+                  avatar: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/ce54bf11889067.562541ef7cde4.png'
+                };
+              }
+            });
+          }
+
+          function addMessages(chatComponent) {
+            const messages = generateMessages();
+
+            for (const mes of messages) {
+              chatComponent.unshift('messages', mes);
+            }
+          }
+
+          window.addDemoReadyListener('#incubator-chat-demo-sample', function(document) {
+            const incubatorChat = document.querySelector('#demo1');
+
+            addMessages(incubatorChat);
+
+            incubatorChat.addEventListener('incubator-chat-trigger-lazy-load', () => {
+              incubatorChat.loading = true;
+
+              setTimeout(() => {
+                addMessages(incubatorChat);
+                incubatorChat.loading = false;
+              }, 400);
+            });
+
+            incubatorChat.addEventListener('incubator-chat-new-message', (e) => {
+              incubatorChat.push('messages', {
+                body: e.detail.body,
+                senderName: 'Mary White',
+                currentUser: true
+              });
+
+              incubatorChat.clearInput();
+
+              incubatorChat.scrollToBottom();
+            });
+          });
+        </script>
       </template>
     </vaadin-demo-snippet>
 

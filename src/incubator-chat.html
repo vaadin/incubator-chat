@@ -9,13 +9,85 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
 <link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
+<link rel="import" href="../../iron-list/iron-list.html">
+<link rel="import" href="incubator-chat-message.html">
+<link rel="import" href="incubator-chat-input.html">
 
 <dom-module id="incubator-chat">
   <template>
     <style>
+      :host {
+        display: block;
+
+        --incubator-chat-message-thread-height: 500px;
+        --incubator-chat-message-thread-spacing: 10px;
+
+        --iron-list-items-container: {
+          border-bottom: 10px solid transparent;
+        }
+      }
+
+      :host ::slotted(*) {
+        display: none;
+      }
+
+      :host([loading]) ::slotted(*) {
+        display: block;
+      }
+
+      [part="message"] + [part="message"] {
+        padding-top: var(--incubator-chat-message-thread-spacing);
+      }
+
+      [part="message-thread-container"] {
+        height: var(--incubator-chat-message-thread-height);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      [part="message-thread"] {
+        padding: 0 15px;
+      }
+
+      [part="message-input"] {
+        padding: 5px;
+      }
+
+      [part="loading"] {
+        text-align: center;
+      }
     </style>
 
-    <h1>Hello world</h1>
+    <div
+      id="messageThreadContainer"
+      part="message-thread-container"
+      on-scroll="_triggerLazyLoad">
+
+      <slot name="loading-indicator">
+      </slot>
+
+      <iron-list
+        id="messageThread"
+        part="message-thread"
+        items="[[messages]]"
+        scroll-target="messageThreadContainer"
+        as="message">
+        <template>
+          <incubator-chat-message
+            part="message"
+            body="[[message.body]]"
+            sender-name="[[message.senderName]]"
+            avatar="[[message.avatar]]"
+            outgoing="[[message.currentUser]]">
+          </incubator-chat-message>
+        </template>
+      </iron-list>
+    </div>
+
+    <incubator-chat-input
+      id="messageInput"
+      part="message-input">
+    </incubator-chat-input>
   </template>
 
   <script>
@@ -34,6 +106,93 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
       class IncubatorChat extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
         static get is() {
           return 'incubator-chat';
+        }
+
+        static get properties() {
+          return {
+            messages: {
+              type: Array,
+              value: () => []
+            },
+
+            lazyLoadTriggerOffset: {
+              type: Number,
+              value: 100
+            },
+
+            debouncePeriod: {
+              type: Number,
+              value: 100
+            },
+
+            loading: {
+              type: Boolean,
+              reflectToAttribute: true,
+              value: false
+            },
+
+            _scrolledToBottom: {
+              type: Boolean,
+              value: false
+            },
+
+            _firstVisibleItem: {
+              type: Object,
+              value: () => ({})
+            }
+
+          };
+        }
+
+        static get observers() {
+          return [
+            '_messagesLoaded(messages, messages.splices)'
+          ];
+        }
+
+        clearInput() {
+          this.$.messageInput.clearInput();
+        }
+
+        scrollToBottom() {
+          this.$.messageThread.scrollToIndex(this.messages.length - 1);
+
+          this._scrolledToBottom = true;
+        }
+
+        _messagesLoaded(messages) {
+          if (!messages.length) {
+            return;
+          }
+
+          if (!this._scrolledToBottom) {
+            Polymer.RenderStatus.beforeNextRender(this, () => {
+              this.scrollToBottom();
+            });
+          } else if (this._firstVisibleItem) {
+            Polymer.RenderStatus.beforeNextRender(this, () => {
+              this.$.messageThread.scrollToItem(this._firstVisibleItem);
+
+              this._firstVisibleItem = undefined;
+            });
+          }
+        }
+
+        _triggerLazyLoad() {
+          if (this.$.messageThreadContainer.scrollTop <= this.lazyLoadTriggerOffset) {
+            this._debouncer = Polymer.Debouncer.debounce(
+              this._debouncer,
+              Polymer.Async.timeOut.after(this.debouncePeriod),
+              () => {
+                this._firstVisibleItem = this.messages[this.$.messageThread.firstVisibleIndex];
+
+                this.dispatchEvent(new CustomEvent('incubator-chat-trigger-lazy-load', {
+                  bubbles: true,
+                  composed: true
+                }));
+              }
+            );
+          }
         }
       }
 

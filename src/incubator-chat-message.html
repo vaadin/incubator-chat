@@ -30,28 +30,32 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
       }
 
       [part="content"] {
+        background: var(--lumo-contrast-5pct);
+        padding: 10px;
+        border-radius: var(--lumo-border-radius);
         margin-left: 10px;
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
+        max-width: 60%;
+      }
+
+      :host([outgoing]) [part="content"] {
+        background: var(--lumo-primary-color);
+        color: var(--lumo-base-color);
       }
 
       :host([outgoing]) [part="content"] {
         margin-left: 0;
         margin-right: 10px;
-        align-items: flex-end;
       }
 
       [part="username"] {
         font-weight: bold;
       }
-
-      [part="body"] {
-        max-width: 60%;
-      }
     </style>
 
     <incubator-avatar
+      part="avatar"
       image="[[avatar]]"
       name="[[senderName]]"
       no-tooltip>

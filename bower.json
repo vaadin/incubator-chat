@@ -28,10 +28,10 @@
     "vaadin-license-checker": "vaadin/license-checker#^2.0.1",
     "vaadin-lumo-styles": "vaadin/vaadin-lumo-styles#^1.0.0",
     "vaadin-element-mixin": "^2.1.2",
-    "incubator-avatar": "vaadin/incubator-avatar#^1.2.0",
     "iron-list": "v2.0.16",
     "vaadin-text-field": "^2.1.2",
-    "vaadin-button": "^2.1.0"
+    "vaadin-button": "^2.1.0",
+    "incubator-avatar": "vaadin/incubator-avatar#^1.2.2"
   },
   "devDependencies": {
     "iron-component-page": "^3.0.0",

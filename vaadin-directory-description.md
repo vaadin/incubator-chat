@@ -6,15 +6,16 @@
 
 # &lt;incubator-chat&gt;
 
-[&lt;incubator-chat&gt;](https://vaadin.com/directory/component/vaadinincubator-element) is a Web Component providing an easy way to ask the user to confirm a choice, part of the [Vaadin components](https://vaadin.com/components).
+[&lt;incubator-chat&gt;](https://vaadin.com/directory/component/vaadinincubator-chat) is a Web Component chat implementation with virtual scroll, infinite scroll and scrolling from bottom to top.
 
-[<img src="https://raw.githubusercontent.com/vaadin/incubator-chat/master/screenshot.png" width="200" alt="Screenshot of incubator-chat">](https://vaadin.com/directory/component/vaadinincubator-element)
+[<img src="https://raw.githubusercontent.com/vaadin/incubator-chat/master/screenshot.png" width="200" alt="Screenshot of incubator-chat">](https://vaadin.com/directory/component/vaadinincubator-chat)
 
 ## Example Usage
 
 ```html
-  <incubator-chat header="Unsaved changes" confirm-text="Save" on-confirm="save"
-    cancel on-cancel="cancel" reject reject-text="Discard" on-reject="discard">
-    Do you want to save or discard your changes before navigating away?
+  <incubator-chat lazy-load-trigger-offset="300">
+    <div class="loading-indicator" slot="loading-indicator">
+      Loading..
+    </div>
   </incubator-chat>
 ```

@@ -4,6 +4,15 @@
 <dom-module id="lumo-incubator-chat-message-element" theme-for="incubator-chat-message">
   <template>
     <style>
+      [part="content"] {
+        background: var(--lumo-contrast-5pct);
+        border-radius: var(--lumo-border-radius);
+      }
+
+      :host([outgoing]) [part="content"] {
+        background: var(--lumo-primary-color);
+        color: var(--lumo-base-color);
+      }
     </style>
   </template>
 </dom-module>

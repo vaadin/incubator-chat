@@ -6,9 +6,9 @@
 
 # &lt;incubator-chat&gt;
 
-[Live Demo ↗](https://vaadin.com/directory/component/vaadinincubator-chat/html-examples)
+[Live Demo ↗](http://incubator.app.fi/incubator-chat-demo)
 |
-[API documentation ↗](https://vaadin.com/directory/component/vaadinincubator-chat/html-api)
+[API documentation ↗](https://vaadin.com/directory/component/vaadinincubator-chat)
 
 
 [&lt;incubator-chat&gt;](https://vaadin.com/directory/component/vaadinincubator-chat) is a Web Component chat implementation with virtual scroll, infinite scroll and scrolling from bottom to top.

@@ -60,8 +60,6 @@
             addMessages(incubatorChat);
 
             incubatorChat.addEventListener('incubator-chat-trigger-lazy-load', () => {
-              incubatorChat.loading = true;
-
               setTimeout(() => {
                 addMessages(incubatorChat);
                 incubatorChat.loading = false;

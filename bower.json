@@ -31,7 +31,8 @@
     "iron-list": "v2.0.16",
     "vaadin-text-field": "^2.1.2",
     "vaadin-button": "^2.1.0",
-    "incubator-avatar": "vaadin/incubator-avatar#^1.2.2"
+    "incubator-avatar": "vaadin/incubator-avatar#^1.2.2",
+    "vaadin-progress-bar": "vaadin/vaadin-progress-bar#^1.1.0"
   },
   "devDependencies": {
     "iron-component-page": "^3.0.0",

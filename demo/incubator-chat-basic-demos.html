@@ -60,12 +60,10 @@
             addMessages(incubatorChat);
 
             incubatorChat.addEventListener('incubator-chat-trigger-lazy-load', () => {
-              incubatorChat.loading = true;
-
               setTimeout(() => {
                 addMessages(incubatorChat);
                 incubatorChat.loading = false;
-              }, 400);
+              }, 2000);
             });
 
             incubatorChat.addEventListener('incubator-chat-new-message', (e) => {
